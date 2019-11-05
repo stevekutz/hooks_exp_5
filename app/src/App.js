@@ -30,13 +30,16 @@ const App = () => {
 
   return (
     <div className="App">
+
+    <div> something </div>  
+  <Button> some button</Button>
       <Form>
         <Label> New Todo Item</Label>
         <Input
           label = 'new thing to do'
           placeholder = 'the placeholer text'
-          style = {}
-          value = {}
+          // style = {}
+          // value = {}
           onChange = {handleChange}
         
         />
