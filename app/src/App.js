@@ -4,13 +4,14 @@ import './App.css';
 
 const App = () => {
   const [task, setTask] = useState('');
-  const [todos, addTodo] = useState([]);
+  const [todos, setTodos] = useState([]);
 
   const handleChange = e =>{
     const {value, name} =  e.target;
 
     setTask(value);  
     console.log('value is ', value);
+    console.log('name is ', name);
 
   }
 
@@ -24,28 +25,34 @@ const App = () => {
 
     console.log('newTask is ', newTask);  
 
-    addTodo([...todos, newTask]);
+    setTodos([...todos, newTask]);
+    setTask('');
+    
 
 
   }  
 
+  const clearTodos = () => {
+    setTodos([]);
+  }
+
   useEffect( () => {
     console.log('useEfect says task is ', task);
     console.log('useEffect says todos is', todos);
-  }, [todos]); 
+  }, [task, todos]); 
 
   return (
     <div className="App">
 
     <div> something </div>  
-  <Button> some button</Button>
+    <Button onClick = {clearTodos}> Clear All Todos</Button>
       <Form onSubmit = {handleSubmit}>
         <Label> New Todo Item</Label>
         <Input
           // label = 'new thing to do'
           placeholder = 'the placeholer text'
-          // style = {}
-          // value = {}
+          // name = {task}
+          value = {task}
           onChange = {handleChange}
         
         />
