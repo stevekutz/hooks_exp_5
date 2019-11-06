@@ -42,7 +42,16 @@ const App = ({id}) => {
   }
 
   const handleDelete = (id) => {
+    console.log('id  is ', id);
     todos.splice(id, 1);
+    setTodos([...todos]);
+  }
+
+  const toggleComplete = (e) => {
+    let {id} = e.target
+        console.log('id  is ', e.target.id);
+
+    todos[id].complete = !todos[id].complete;
     setTodos([...todos]);
   }
 
@@ -73,8 +82,9 @@ const App = ({id}) => {
 
             <Card key = {index} id = {index}>
               <Label> {item.value} </Label>
-              <Label> {item.complete.toString()} </Label>
+              <Label onClick = {toggleComplete}> Complete: {item.complete.toString()} </Label>
               <Button onClick = {handleDelete} > delete todo</Button>
+              <Button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</Button>
             </Card>    
 
       ))}
