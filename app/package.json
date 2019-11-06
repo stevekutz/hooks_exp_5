@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "devtools": "^5.16.0",
     "moment": "^2.24.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
@@ -14,6 +15,7 @@
     "reactn": "^2.2.4",
     "reactn-devtools": "^1.1.0",
     "redux": "^4.0.4",
+    "reinspect": "^1.0.2",
     "semantic-ui-react": "^0.88.1",
     "styled-components": "^4.4.1"
   },
