@@ -41,6 +41,11 @@ const App = ({id}) => {
     setTodos([]);
   }
 
+  const handleDelete = (id) => {
+    todos.splice(id, 1);
+    setTodos([...todos]);
+  }
+
   useEffect( () => {
     console.log('useEfect says task is ', task);
     console.log('useEffect says todos is', todos);
@@ -66,9 +71,10 @@ const App = ({id}) => {
         <div>
           {todos.map((item, index) => (
 
-            <Card key = {index}>
+            <Card key = {index} id = {index}>
               <Label> {item.value} </Label>
               <Label> {item.complete.toString()} </Label>
+              <Button onClick = {handleDelete} > delete todo</Button>
             </Card>    
 
       ))}
