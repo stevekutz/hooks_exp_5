@@ -5,6 +5,9 @@ import {StateInspector, useState} from 'reinspect';
 import {Button, Card, Form, Input, Label} from 'semantic-ui-react';
 import './App.css';
 
+const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center',
+                  margin: '0 auto', flexDirection: 'column', width: '90%' }
+
 const App = ({id}) => {
   const [task, setTask] = useState('', id);
   const [todos, setTodos] = useState([], id);
@@ -62,36 +65,37 @@ const App = ({id}) => {
 
   return (
     <StateInspector>
- 
+      <div style = {divStyle}>
+      
+      
+      <Form onSubmit = {handleSubmit}>
+      <Input
+      // label = 'new thing to do'
+      placeholder = 'the placeholer text'
+      value = {task}
+      onChange = {handleChange}
+      
+      />
+      <Button type = 'submit' > Add Todo </Button>
+      
+      </Form>
       <Button onClick = {clearTodos}> Clear All Todos</Button>
-        <Form onSubmit = {handleSubmit}>
-          <Label> New Todo Item</Label>
-          <Input
-            // label = 'new thing to do'
-            placeholder = 'the placeholer text'
-            value = {task}
-            onChange = {handleChange}
-          
-          />
-          <Button type = 'submit' > Add Todo </Button>
-
-        </Form>
-
-        <div>
-          {todos.map((item, index) => (
-
-            <Card key = {index} id = {index}>
-              <Label> {item.value} </Label>
-              <Label onClick = {toggleComplete}> Complete: {item.complete.toString()} </Label>
-              <Button onClick = {handleDelete} > delete todo</Button>
-              <Button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</Button>
-            </Card>    
-
-      ))}
+      <div>
+      {todos.map((item, index) => (
+        
+        <Card key = {index} id = {index}>
+        <Label> {item.value} </Label>
+        <Label onClick = {toggleComplete}> Complete: {item.complete.toString()} </Label>
+        <Button onClick = {handleDelete} > delete todo</Button>
+        <Button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</Button>
+        </Card>    
+        
+        ))}
         </div>    
-   
+        
+      </div>
     </StateInspector>
-  );
+        );
 }
 
 export default App;
