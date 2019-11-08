@@ -1,30 +1,14 @@
-import React , {useEffect}from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-// import TodosHooks from './TodosHooks';
-import * as serviceWorker from './serviceWorker';
-import {StateInspector, useState} from 'reinspect';
-import Counter from './Counter';
+// import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import {useState} from 'reinspect';
+
 import {Button, Card, Form, Input, Label} from 'semantic-ui-react';
+import './App.css';
 
 const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center',
                   margin: '0 auto', flexDirection: 'column', width: '90%' }
 
-
-
-function App() {
-  return (
-    <StateInspector name="Example">
-       <Counters />    
-     {/*  <TodosHooks/>   */}
-    </StateInspector>
-  );
-}
-
-// import addReactNDevTools from 'reactn-devtools';
-// addReactNDevTools();
-
-function TodosHooks ({id}){
+export default function TodosHooks ({id}){
   const [task, setTask] = useState('', id);
   const [todos, setTodos] = useState([], id);
 
@@ -114,28 +98,3 @@ function TodosHooks ({id}){
 );
 }
 
-
-
-
-function Counters() {
-  const [count, setCount] = useState(4, "count");
-
-  return (
-    <div>
-      <p>
-        <button onClick={() => setCount(count + 1)}>Add counter</button>
-
-        <button onClick={() => setCount(count - 1)} disabled={count === 0}>
-          Remove counter
-        </button>
-      </p>
-
-      {Array.from({ length: count }).map((_, index) => (
-        <Counter id={`counter${index}`} key={`counter${index}`} />
-      ))}
-    </div>
-  );
-}
-
-
-export default App;

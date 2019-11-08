@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import {StateInspector} from 'reinspect';
+
 
 // import addReactNDevTools from 'reactn-devtools';
 // addReactNDevTools();
+
 
 ReactDOM.render(
 
