@@ -5,18 +5,17 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {StateInspector, useState} from 'reinspect';
 import Counter from './Counter';
-import {Button, Card, Form, Input, Label} from 'semantic-ui-react';
+import {Button, Card, Form, Grid, Input, Label} from 'semantic-ui-react';
 
 const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center',
                   margin: '0 auto', flexDirection: 'column', width: '90%' }
 
-
+const labelStyle = {width: '90%'}
 
 function App() {
   return (
     <StateInspector name="Example">
-       <Counters />    
-     {/*  <TodosHooks/>   */}
+     <TodosHooks/> 
     </StateInspector>
   );
 }
@@ -81,61 +80,57 @@ function TodosHooks ({id}){
 
   return (
    
-      <div style = {divStyle}>
+    <div style = {divStyle}>
       
-      
-      <Form onSubmit = {handleSubmit}>
-      <Input
-      // label = 'new thing to do'
-      placeholder = 'the placeholer text'
-      value = {task}
-      onChange = {handleChange}
-      
-      />
-      <Button type = 'submit' > Add Todo </Button>
-      
-      </Form>
-      <Button onClick = {clearTodos}> Clear All Todos</Button>
       <div>
-      {todos.map((item, index) => (
+        <Form onSubmit = {handleSubmit}>
+          <Input
+            // label = 'new thing to do'
+            placeholder = 'the placeholer text'
+            value = {task}
+            onChange = {handleChange}
+          
+          />
+          <Button type = 'submit' > Add Todo </Button>
         
-        <Card key = {index} id = {index}>
-        <Label> {item.value} </Label>
-        <Label onClick = {toggleComplete}> Complete: {item.complete.toString()} </Label>
-        <Button onClick = {handleDelete} > delete todo</Button>
-        <Button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</Button>
-        </Card>    
-        
-        ))}
-        </div>    
-        
+        </Form>
       </div>
-   
-);
-}
 
+      <Button onClick = {clearTodos}> Clear All Todos</Button>
+    
 
-
-
-function Counters() {
-  const [count, setCount] = useState(4, "count");
-
-  return (
-    <div>
-      <p>
-        <button onClick={() => setCount(count + 1)}>Add counter</button>
-
-        <button onClick={() => setCount(count - 1)} disabled={count === 0}>
-          Remove counter
-        </button>
-      </p>
-
-      {Array.from({ length: count }).map((_, index) => (
-        <Counter id={`counter${index}`} key={`counter${index}`} />
+    <div style = {{display: 'flex', width: '90%', margin: '0 auto', flexWrap: 'wrap'}} > 
+      {todos.map((item, index) => (
+        <div key = {index} id = {index} style = {{width: '30%', margin: '0 auto'}} >
+          <Card>
+            <Grid container>
+              <Grid.Column>
+                <Label style = {labelStyle} horizontal> Task : {item.value}    </Label>
+                <Label center id = {index} onClick = {(id) => toggleComplete(id)}  > Complete: {item.complete.toString()}    </Label>
+              </Grid.Column>      
+            </Grid>
+            <Grid container>
+              <Grid.Column>
+                <button fluid  right onClick = {handleDelete} > delete todo</button>
+                <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
+              </Grid.Column>
+            
+              </Grid>  
+          
+          
+            </Card>
+        </div>
       ))}
+    
+    </div>  
+        
+
     </div>
+   
   );
 }
+
+
 
 
 export default App;

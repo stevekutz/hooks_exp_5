@@ -9,12 +9,11 @@ const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center
                   margin: '0 auto', flexDirection: 'column', width: '90%' }
 
 export default function TodosHooks ({id}){
-  const [task, setTask] = useState('', id);
-  const [todos, setTodos] = useState([], id);
+c
 
-  // const initialState = [];
-  // const todoState = useState(initialState)
-  // const [todos, setTodos] = useStateDevtools(todoState, initialState, 'TODOS');
+  const initialState = [];
+  const todoState = useState(initialState)
+  const [todos, setTodos] = useStateDevtools(todoState, initialState, 'TODOS');
 
   const handleChange = e =>{
     const {value, name} =  e.target;
@@ -58,10 +57,10 @@ export default function TodosHooks ({id}){
     setTodos([...todos]);
   }
 
-  useEffect( () => {
-    console.log('useEfect says task is ', task);
-    console.log('useEffect says todos is', todos);
-  }, [task, todos]); 
+  // useEffect( () => {
+  //   console.log('useEfect says task is ', task);
+  //   console.log('useEffect says todos is', todos);
+  // }, [task, todos]); 
 
   return (
    
