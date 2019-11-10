@@ -1,22 +1,17 @@
 import React , {useEffect}from 'react';
 import './index.css';
 import {StateInspector, useState} from 'reinspect';
-//import Counter from './Counter';
-import {Button, Card, Form, Grid, Input, Label} from 'semantic-ui-react';
+// import {Button, Card, Container, Form, Grid, Input, Label} from 'semantic-ui-react';
 
-const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center',
-                  margin: '0 auto', flexDirection: 'column', width: '90%' }
-const labelStyle = {width: '90%'}
-
-// const id = 1; // need this for ReduxDevTools to see hooks at work
+const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center',
+                  margin: '2px auto', flexDirection: 'column', width: '95%', border: '1px solid blue' }
+const taskStyle = {borderRadius: '1px 2px 2px 4px', margin: '2px', border: '1px solid grey'}
 
 function App (){
   const [task, setTask] = useState('', "Task");
   const [todos, setTodos] = useState([], "Todos");
-
-  // const initialState = [];
-  // const todoState = useState(initialState)
-  // const [todos, setTodos] = useStateDevtools(todoState, initialState, 'TODOS');
+  const [priority, setPriority] = useState('low', "Priority");
+;
 
   const handleChange = e =>{
     const {value, name} =  e.target;
@@ -26,11 +21,12 @@ function App (){
 
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e, value2) => {
     e.preventDefault();
 
     const newTask = {
       value: task,
+      priority: priority,
       complete: false,
     }
 
@@ -60,52 +56,54 @@ function App (){
     setTodos([...todos]);
   }
 
-  // useEffect( () => {
-  //   console.log('useEfect says task is ', task);
-  //   console.log('useEffect says todos is', todos);
-  // }, [task, todos]); 
+  const handlePriority = e => {
+    const {value} =  e.target;
+    setPriority(value);
+  }
+
+  useEffect( () => {
+    console.log('useEfect says task is ', task);
+    console.log('useEffect says todos is', todos);
+    console.log('useEffect says priority is', priority);
+  }, [task, todos]); 
 
   return (
    
     <div style = {divStyle}>
       
       <div>
-        <Form onSubmit = {handleSubmit}>
-          <Input
-            // label = 'new thing to do'
-            placeholder = 'the placeholer text'
+        <form  onSubmit = {handleSubmit}>
+         <div style = {{display: 'flex'}} > 
+          <input
+            placeholder = 'the placeholder text'
             value = {task}
-            onChange = {handleChange}
-          
+            onChange = {handleChange}          
           />
-          <Button type = 'submit' > Add Todo </Button>
+         <select onChange = {handlePriority}>
+            <option value2 = 'low'> Low </option>
+            <option value2 = 'med'> Medium </option>
+            <option value2 = 'high'> High </option>
+         </select>
+          <button type = 'submit' > Add Todo </button>
+         </div>
+          
+          
         
-        </Form>
+        </form>
       </div>
-
-      <Button onClick = {clearTodos}> Clear All Todos</Button>
+      <button onClick = {clearTodos}> Clear All Todos</button>
     
 
-    <div style = {{display: 'flex', width: '90%', margin: '0 auto', flexWrap: 'wrap'}} > 
+    <div style = {{display: 'flex', width: '100%', justifyContent: 'center', flexWrap: 'wrap', border: '1px solid blue'}} > 
       {todos.map((item, index) => (
-        <div key = {index} id = {index} style = {{width: '30%', margin: '0 auto'}} >
-          <Card>
-            <Grid container>
-              <Grid.Column>
-                <Label style = {labelStyle} horizontal> Task : {item.value}    </Label>
-                <div center id = {index} onClick = {(id) => toggleComplete(id)}  > Complete: {item.complete.toString()}    </div>
-              </Grid.Column>      
-            </Grid>
-            <Grid container>
-              <Grid.Column>
-                <button fluid  right onClick = {handleDelete} > delete todo</button>
+        <div key = {index} id = {index}  style = {taskStyle}>
+    
+                <div > Task : {item.value}    </div>
+                <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
+                <div id = {index} > Priority; {item.priority} </div>
+                <button onClick = {handleDelete} > delete todo</button>
                 <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
-              </Grid.Column>
-            
-              </Grid>  
-          
-          
-            </Card>
+
         </div>
       ))}
     
