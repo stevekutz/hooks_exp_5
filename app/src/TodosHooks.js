@@ -8,7 +8,7 @@ import './App.css';
 const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center',
                   margin: '0 auto', flexDirection: 'column', width: '90%' }
 
-export default function TodosHooks ({id}){
+export default function TodosHooks (){
 c
 
   const initialState = [];

@@ -1,31 +1,18 @@
 import React , {useEffect}from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-// import TodosHooks from './TodosHooks';
-import * as serviceWorker from './serviceWorker';
 import {StateInspector, useState} from 'reinspect';
-import Counter from './Counter';
+//import Counter from './Counter';
 import {Button, Card, Form, Grid, Input, Label} from 'semantic-ui-react';
 
 const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center',
                   margin: '0 auto', flexDirection: 'column', width: '90%' }
-
 const labelStyle = {width: '90%'}
 
-function App() {
-  return (
-    <StateInspector name="Example">
-     <TodosHooks/> 
-    </StateInspector>
-  );
-}
+// const id = 1; // need this for ReduxDevTools to see hooks at work
 
-// import addReactNDevTools from 'reactn-devtools';
-// addReactNDevTools();
-
-function TodosHooks ({id}){
-  const [task, setTask] = useState('', id);
-  const [todos, setTodos] = useState([], id);
+function App (){
+  const [task, setTask] = useState('', "Task");
+  const [todos, setTodos] = useState([], "Todos");
 
   // const initialState = [];
   // const todoState = useState(initialState)
@@ -73,10 +60,10 @@ function TodosHooks ({id}){
     setTodos([...todos]);
   }
 
-  useEffect( () => {
-    console.log('useEfect says task is ', task);
-    console.log('useEffect says todos is', todos);
-  }, [task, todos]); 
+  // useEffect( () => {
+  //   console.log('useEfect says task is ', task);
+  //   console.log('useEffect says todos is', todos);
+  // }, [task, todos]); 
 
   return (
    
@@ -106,7 +93,7 @@ function TodosHooks ({id}){
             <Grid container>
               <Grid.Column>
                 <Label style = {labelStyle} horizontal> Task : {item.value}    </Label>
-                <Label center id = {index} onClick = {(id) => toggleComplete(id)}  > Complete: {item.complete.toString()}    </Label>
+                <div center id = {index} onClick = {(id) => toggleComplete(id)}  > Complete: {item.complete.toString()}    </div>
               </Grid.Column>      
             </Grid>
             <Grid container>
