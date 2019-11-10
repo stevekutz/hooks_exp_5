@@ -100,7 +100,12 @@ function App (){
     
                 <div > Task : {item.value}    </div>
                 <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
-                <div id = {index} > Priority; {item.priority} </div>
+                <select onChange = {handlePriority} >
+                  <option value2 = {priority}> {item.priority} </option>
+                  <option value2 = 'low'> Low </option>
+                  <option value2 = 'med'> Medium </option>
+                  <option value2 = 'high'> High </option>
+                </select>
                 <button onClick = {handleDelete} > delete todo</button>
                 <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
 
