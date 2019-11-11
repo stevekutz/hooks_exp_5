@@ -10,7 +10,7 @@ const taskStyle = {borderRadius: '1px 2px 2px 4px', margin: '2px', border: '1px 
 function App (){
   const [task, setTask] = useState('', "Task");
   const [todos, setTodos] = useState([], "Todos");
-  const [priority, setPriority] = useState('low', "Priority");
+  const [priority, setPriority] = useState('Low', "Priority");
 ;
 
   const handleChange = e =>{
@@ -64,7 +64,7 @@ function App (){
     return await setPriority(value);
   }
   
-  const updatePriority = async(e) =>{
+  const updatePriority = async(e, addTodo) =>{
     let {id,value} = e.target
     console.log('UP name is ', e.target);
 
@@ -74,12 +74,11 @@ function App (){
 
     console.log('UP index is ', id);
     // await setPriority(value);
-    if(priority !== ''){
+    if(priority !== '' && !addTodo){
       todos[id].priority = priority;
       await setTodos([...todos]);
     }
-    id = undefined;
-    console.log('UP index is ', id);
+
   
   }
 
@@ -102,7 +101,7 @@ function App (){
             value = {task}
             onChange = {handleChange}          
           />
-         <select onChange = {handlePriority}>
+         <select onChange = {handlePriority} addTodo = {true}>
             <option > Low </option>
             <option > Medium </option>
             <option > High </option>
@@ -124,12 +123,12 @@ function App (){
                 <div > Task : {item.value}    </div>
                 <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
                 <div>Priority: {item.priority}</div>
-                <select id = {index} onChange = {handlePriority} >
-                  <option  id = {index} value = 'low'> Low </option>
+                <select id = {index} onChange = {handlePriority} addTodo = {false}>
+                  <option  id = {index} > Low </option>
                   <option  id = {index} > Medium </option>
                   <option  id = {index} > High </option>
                 </select>
-                <button id = {index} onClick = {(id) => updatePriority(id)} > Update Priority</button>
+                <button id = {index} onClick = {(id) => updatePriority(id)} addTodo = {false} > Update Priority</button>
                 <button onClick = {handleDelete} > delete todo</button>
                 <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
         </div>
