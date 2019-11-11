@@ -1,6 +1,6 @@
 import React , {useEffect}from 'react';
 import './index.css';
-import {StateInspector, useState} from 'reinspect';
+import {useState} from 'reinspect';
 // import {Button, Card, Container, Form, Grid, Input, Label} from 'semantic-ui-react';
 
 const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center',
@@ -48,24 +48,47 @@ function App (){
     setTodos([...todos]);
   }
 
-  const toggleComplete = (e) => {
+  
+  const toggleComplete = (e, value2) => {
     let {id} = e.target
-        console.log('id  is ', e.target.id);
+    console.log('id  is ', e.target.id);
+    console.log('value2 is', value2);
 
     todos[id].complete = !todos[id].complete;
     setTodos([...todos]);
   }
-
-  const handlePriority = e => {
+  
+  const handlePriority = async (e) => {
+    
     const {value} =  e.target;
-    setPriority(value);
+    return await setPriority(value);
+  }
+  
+  const updatePriority = async(e) =>{
+    let {id,value} = e.target
+    console.log('UP name is ', e.target);
+
+    await setPriority(value);
+
+    console.log('UP value is ', value);
+
+    console.log('UP index is ', id);
+    // await setPriority(value);
+    if(priority !== ''){
+      todos[id].priority = priority;
+      await setTodos([...todos]);
+    }
+    id = undefined;
+    console.log('UP index is ', id);
+  
   }
 
   useEffect( () => {
-    console.log('useEfect says task is ', task);
-    console.log('useEffect says todos is', todos);
+    // console.log('useEfect says task is ', task);
+    // console.log('useEffect says todos is', todos);
     console.log('useEffect says priority is', priority);
-  }, [task, todos]); 
+    // setTodos([...todos]);
+  }, [task]); 
 
   return (
    
@@ -80,9 +103,9 @@ function App (){
             onChange = {handleChange}          
           />
          <select onChange = {handlePriority}>
-            <option value2 = 'low'> Low </option>
-            <option value2 = 'med'> Medium </option>
-            <option value2 = 'high'> High </option>
+            <option > Low </option>
+            <option > Medium </option>
+            <option > High </option>
          </select>
           <button type = 'submit' > Add Todo </button>
          </div>
@@ -100,15 +123,15 @@ function App (){
     
                 <div > Task : {item.value}    </div>
                 <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
-                <select onChange = {handlePriority} >
-                  <option value2 = {priority}> {item.priority} </option>
-                  <option value2 = 'low'> Low </option>
-                  <option value2 = 'med'> Medium </option>
-                  <option value2 = 'high'> High </option>
+                <div>Priority: {item.priority}</div>
+                <select id = {index} onChange = {handlePriority} >
+                  <option  id = {index} value = 'low'> Low </option>
+                  <option  id = {index} > Medium </option>
+                  <option  id = {index} > High </option>
                 </select>
+                <button id = {index} onClick = {(id) => updatePriority(id)} > Update Priority</button>
                 <button onClick = {handleDelete} > delete todo</button>
                 <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
-
         </div>
       ))}
     
@@ -124,3 +147,5 @@ function App (){
 
 
 export default App;
+//  <option value2 = {priority}> {item.priority} </option
+// <option id = {index} onChange = {(id) => updatePriority(id)}   value2 = 'low'> Low </option>
