@@ -11,12 +11,13 @@ function App (){
   const [task, setTask] = useState('', "Task");
   const [todos, setTodos] = useState([], "Todos");
   const [priority, setPriority] = useState('Low', "Priority");
+  const [dropDownValue, setDropDownValue] = useState('', "DropDown Value")
 ;
 
   const handleChange = e =>{
     const {value, name} =  e.target;
 
-    setTask(value)
+    setTask(value);
     console.log('value is ', value);
 
   }
@@ -61,20 +62,22 @@ function App (){
   const handlePriority = async (e) => {
     
     const {value} =  e.target;
-    return await setPriority(value);
+    console.log('value is ', value);
+   return await setPriority(value);
+ 
   }
   
   const updatePriority = async(e, addTodo) =>{
     let {id,value} = e.target
     console.log('UP name is ', e.target);
 
-    await setPriority(value);
+    // await setPriority(value);
 
     console.log('UP value is ', value);
 
     console.log('UP index is ', id);
     // await setPriority(value);
-    if(priority !== '' && !addTodo){
+    if(priority !== ''){
       todos[id].priority = priority;
       await setTodos([...todos]);
     }
@@ -101,10 +104,10 @@ function App (){
             value = {task}
             onChange = {handleChange}          
           />
-         <select onChange = {handlePriority} addTodo = {true}>
-            <option > Low </option>
-            <option > Medium </option>
-            <option > High </option>
+         <select onChange = {handlePriority}>
+            <option defaultValue = "low"> Low </option>
+            <option value = "medium"> Medium </option>
+            <option value = "high"> High </option>
          </select>
           <button type = 'submit' > Add Todo </button>
          </div>
@@ -123,12 +126,12 @@ function App (){
                 <div > Task : {item.value}    </div>
                 <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
                 <div>Priority: {item.priority}</div>
-                <select id = {index} onChange = {handlePriority} addTodo = {false}>
+                <select id = {index} onChange = {handlePriority}>
                   <option  id = {index} > Low </option>
                   <option  id = {index} > Medium </option>
                   <option  id = {index} > High </option>
                 </select>
-                <button id = {index} onClick = {(id) => updatePriority(id)} addTodo = {false} > Update Priority</button>
+                <button id = {index} onClick = {(id) => updatePriority(id)} onChange = {handlePriority}> Update Priority</button>
                 <button onClick = {handleDelete} > delete todo</button>
                 <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
         </div>
