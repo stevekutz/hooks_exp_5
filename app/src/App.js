@@ -25,6 +25,8 @@ function App (){
   const handleSubmit = (e, value2) => {
     e.preventDefault();
 
+    console.log('~~~~~  e   is ', e);
+
     const newTask = {
       value: task,
       priority: priority,
@@ -52,6 +54,7 @@ function App (){
   
   const toggleComplete = (e, value2) => {
     let {id} = e.target
+    console.log('toggle  e', e);  
     console.log('id  is ', e.target.id);
     console.log('value2 is', value2);
 
@@ -61,8 +64,9 @@ function App (){
   
   const handlePriority = async (e) => {
     
-    const {value} =  e.target;
-    console.log('value is ', value);
+    const {value, id} =  e.target;
+    console.log('>>>> id is ', id);
+    console.log('>>>> value is ', value);
    return await setPriority(value);
  
   }
@@ -105,15 +109,13 @@ function App (){
             onChange = {handleChange}          
           />
          <select onChange = {handlePriority}>
-            <option defaultValue = "low"> Low </option>
+            <option value = "low"> Low </option>
             <option value = "medium"> Medium </option>
             <option value = "high"> High </option>
          </select>
           <button type = 'submit' > Add Todo </button>
          </div>
-          
-          
-        
+                 
         </form>
       </div>
       <button onClick = {clearTodos}> Clear All Todos</button>
