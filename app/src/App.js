@@ -10,8 +10,8 @@ const taskStyle = {borderRadius: '1px 2px 2px 4px', margin: '2px', border: '1px 
 function App (){
   const [task, setTask] = useState('', "Task");
   const [todos, setTodos] = useState([], "Todos");
-  const [priority, setPriority] = useState('Low', "Priority");
-  const [dropDownValue, setDropDownValue] = useState('', "DropDown Value")
+  const [priority, setPriority] = useState('', "Priority");
+  const [addTodoPriority, setAddTodoPriority] = useState('', "AddTodo Priority Value")
 ;
 
   const handleChange = e =>{
@@ -34,11 +34,11 @@ function App (){
     }
 
     console.log('newTask is ', newTask);  
-    if(task) {
+    if(task && priority) {
       setTodos([...todos, newTask]);
       setTask('');
     }
-    
+    setAddTodoPriority(priority)
   }  
 
   const clearTodos = () => {
@@ -86,7 +86,7 @@ function App (){
       await setTodos([...todos]);
     }
 
-  
+    setPriority('');
   }
 
   useEffect( () => {
@@ -109,6 +109,7 @@ function App (){
             onChange = {handleChange}          
           />
          <select onChange = {handlePriority}>
+            <option active= ""> -choose-</option>
             <option value = "low"> Low </option>
             <option value = "medium"> Medium </option>
             <option value = "high"> High </option>
