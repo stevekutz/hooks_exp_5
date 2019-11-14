@@ -1,6 +1,7 @@
 import React , {useEffect}from 'react';
 import './index.css';
 import {useState} from 'reinspect';
+import Select from 'react-select';
 // import {Button, Card, Container, Form, Grid, Input, Label} from 'semantic-ui-react';
 
 const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center',
@@ -11,8 +12,24 @@ function App (){
   const [task, setTask] = useState('', "Task");
   const [todos, setTodos] = useState([], "Todos");
   const [priority, setPriority] = useState('', "Priority");
-  const [addTodoPriority, setAddTodoPriority] = useState('', "AddTodo Priority Value")
-;
+  const [values, setValues] = useState('', "AddTodo Priority Value");
+
+  const selectOptions = [
+    {value: 1, label: "Low"},
+    {value: 2, label: "Medium"},
+    {value: 3, label: "High"}
+  ]
+
+  function handleSelectChange(newValue, actionMeta){
+    setValues({
+        ...values,
+        [actionMeta.name]: newValue ? newValue.value : ""
+    })
+  }
+
+  const initialFormState = { mySelectKey: null };
+
+  const [myForm, setMyForm] = useState(initialFormState);
 
   const handleChange = e =>{
     const {value, name} =  e.target;
@@ -38,7 +55,7 @@ function App (){
       setTodos([...todos, newTask]);
       setTask('');
     }
-    setAddTodoPriority(priority)
+
   }  
 
   const clearTodos = () => {
@@ -51,6 +68,9 @@ function App (){
     setTodos([...todos]);
   }
 
+  const updateForm = value => {
+    setMyForm({ ...myForm, mySelectKey: value });
+  };
   
   const toggleComplete = (e, value2) => {
     let {id} = e.target
@@ -108,12 +128,12 @@ function App (){
             value = {task}
             onChange = {handleChange}          
           />
-         <select onChange = {handlePriority}>
-            <option active= ""> -choose-</option>
-            <option value = "low"> Low </option>
-            <option value = "medium"> Medium </option>
-            <option value = "high"> High </option>
-         </select>
+         <Select 
+            // onChange = {handlePriority}
+            onChange={({ value }) => updateForm(value)}
+            options = {selectOptions}
+            isClearable = {true}
+         />
           <button type = 'submit' > Add Todo </button>
          </div>
                  
@@ -154,3 +174,44 @@ function App (){
 export default App;
 //  <option value2 = {priority}> {item.priority} </option
 // <option id = {index} onChange = {(id) => updatePriority(id)}   value2 = 'low'> Low </option>
+
+
+/*
+const initial_state = { my_field: "" }
+
+const my_field_options = [
+    { value: 1, label: "Daily" },
+    { value: 2, label: "Weekly" },
+    { value: 3, label: "Monthly" },
+]
+
+export default function Example(){
+    const [values, setValues] = useState(initial_state);
+
+    function handleSelectChange(newValue, actionMeta){
+        setValues({
+            ...values,
+            [actionMeta.name]: newValue ? newValue.value : ""
+        })
+    }
+
+    return <Select
+               name={"my_field"}
+               inputId={"my_field"}
+               onChange={handleSelectChange}
+               options={my_field_options}
+               placeholder={values.my_field}
+               isClearable={true}
+           /> 
+}
+
+*/
+
+/*
+         <select onChange = {handlePriority}>
+            <option active= ""> -choose-</option>
+            <option value = "low"> Low </option>
+            <option value = "medium"> Medium </option>
+            <option value = "high"> High </option>
+         </select>
+*/

@@ -11,6 +11,7 @@
     "react-rainbow-components": "^1.9.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.2.0",
+    "react-select": "^3.0.8",
     "react-spinners-kit": "^1.9.0",
     "reactn": "^2.2.4",
     "reactn-devtools": "^1.1.0",
